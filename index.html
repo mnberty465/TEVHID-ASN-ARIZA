@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Tevhid Asansör Arıza Formu</title>
   <style>
     body {
@@ -11,7 +11,6 @@
       margin: 0;
       padding: 0;
     }
-
     .container {
       max-width: 500px;
       margin: 30px auto;
@@ -20,25 +19,21 @@
       border-radius: 10px;
       box-shadow: 0 0 12px rgba(0,0,0,0.1);
     }
-
     .logo {
       display: block;
-      margin: 0 auto 20px;
+      margin: 0 auto 25px;
       max-width: 100%;
-      width: 300px;
+      width: 400px; /* LOGO BURASI BÜYÜK */
     }
-
     h2 {
       text-align: center;
       color: #2c3e50;
     }
-
     label {
       display: block;
       margin-top: 15px;
       font-weight: bold;
     }
-
     input, textarea {
       width: 100%;
       padding: 10px;
@@ -47,7 +42,6 @@
       border-radius: 5px;
       font-size: 14px;
     }
-
     button {
       margin-top: 25px;
       padding: 12px;
@@ -59,7 +53,6 @@
       font-size: 16px;
       cursor: pointer;
     }
-
     button:hover {
       background-color: #1a252f;
     }
@@ -67,18 +60,18 @@
 </head>
 <body>
   <div class="container">
-    <img class="logo" src="https://i.hizliresim.com/eefw63i.png" alt="Tevhid Asansör Logo">
+    <img class="logo" src="https://i.hizliresim.com/eefw63i.png" alt="Tevhid Asansör Logo" />
     <h2>Arıza Bildirim Formu</h2>
 
     <form id="arizaForm">
       <label>Ad Soyad:</label>
-      <input type="text" name="ad" required>
+      <input type="text" name="ad" required />
 
       <label>Telefon:</label>
-      <input type="tel" name="telefon" required>
+      <input type="tel" name="telefon" required />
 
       <label>Bina Adı:</label>
-      <input type="text" name="bina_adi">
+      <input type="text" name="bina_adi" />
 
       <label>Adres:</label>
       <textarea name="bina_adresi" rows="3"></textarea>
@@ -93,28 +86,27 @@
   <script>
     document.getElementById("arizaForm").addEventListener("submit", function(e) {
       e.preventDefault();
+
       const formData = new FormData(this);
       const data = {};
-      formData.forEach((value, key) => data[key] = value);
+      formData.forEach((value, key) => (data[key] = value));
 
-      fetch("https://script.google.com/macros/s/AKfycby7RPMWTbVhK5F8J7S4zywhXU2G5oCPHrdUMkDAWQ-Yh3-bf16VxjyTgLrV3py8MgcS/exec", {
+      fetch("https://script.google.com/macros/s/AKfycbzjApo8OndGN4CQIM1IvYXtpbgjQkZj7pvyYc3OdETrDoSSWqoUkN_9tY6p42h5JWIE/exec", {
         method: "POST",
         body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json"
-        }
+        headers: { "Content-Type": "application/json" },
       })
-      .then(res => {
-        if (res.ok) {
-          alert("✅ Arıza başarıyla gönderildi!");
-          document.getElementById("arizaForm").reset();
-        } else {
-          alert("❌ Form gönderilemedi. Lütfen tekrar deneyin.");
-        }
-      })
-      .catch(err => {
-        alert("⚠️ Hata oluştu: " + err.message);
-      });
+        .then((res) => {
+          if (res.ok) {
+            alert("✅ Arıza başarıyla gönderildi!");
+            document.getElementById("arizaForm").reset();
+          } else {
+            alert("❌ Form gönderilemedi. Lütfen tekrar deneyin.");
+          }
+        })
+        .catch((err) => {
+          alert("⚠️ Hata oluştu: " + err.message);
+        });
     });
   </script>
 </body>
