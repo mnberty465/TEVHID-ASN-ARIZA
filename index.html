@@ -2,35 +2,93 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Tevhid Asansör Arıza Formu</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 30px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+    }
+
+    .logo {
+      display: block;
+      margin: 0 auto 20px;
+      max-width: 100%;
+      width: 300px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    button {
+      margin-top: 25px;
+      padding: 12px;
+      width: 100%;
+      background-color: #2c3e50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #1a252f;
+    }
+  </style>
 </head>
 <body>
-  <h2>Tevhid Asansör Arıza Bildirim Formu</h2>
+  <div class="container">
+    <img class="logo" src="https://i.hizliresim.com/eefw63i.png" alt="Tevhid Asansör Logo">
+    <h2>Arıza Bildirim Formu</h2>
 
-  <form id="arizaForm">
-    <label>Ad Soyad:</label><br>
-    <input type="text" name="ad" required><br><br>
+    <form id="arizaForm">
+      <label>Ad Soyad:</label>
+      <input type="text" name="ad" required>
 
-    <label>Telefon:</label><br>
-    <input type="tel" name="telefon" required><br><br>
+      <label>Telefon:</label>
+      <input type="tel" name="telefon" required>
 
-    <label>Bina Adı:</label><br>
-    <input type="text" name="bina_adi"><br><br>
+      <label>Bina Adı:</label>
+      <input type="text" name="bina_adi">
 
-    <label>Adres:</label><br>
-    <textarea name="bina_adresi"></textarea><br><br>
+      <label>Adres:</label>
+      <textarea name="bina_adresi" rows="3"></textarea>
 
-    <label>Arıza Açıklaması:</label><br>
-    <textarea name="ariza"></textarea><br><br>
+      <label>Arıza Açıklaması:</label>
+      <textarea name="ariza" rows="3"></textarea>
 
-    <label>Fotoğraf (link):</label><br>
-    <input type="text" name="foto"><br><br>
-
-    <label>Çalışan Sayısı:</label><br>
-    <input type="number" name="calisan_sayisi"><br><br>
-
-    <button type="submit">Gönder</button>
-  </form>
+      <button type="submit">Gönder</button>
+    </form>
+  </div>
 
   <script>
     document.getElementById("arizaForm").addEventListener("submit", function(e) {
@@ -40,3 +98,24 @@
       formData.forEach((value, key) => data[key] = value);
 
       fetch("https://script.google.com/macros/s/AKfycby7RPMWTbVhK5F8J7S4zywhXU2G5oCPHrdUMkDAWQ-Yh3-bf16VxjyTgLrV3py8MgcS/exec", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .then(res => {
+        if (res.ok) {
+          alert("✅ Arıza başarıyla gönderildi!");
+          document.getElementById("arizaForm").reset();
+        } else {
+          alert("❌ Form gönderilemedi. Lütfen tekrar deneyin.");
+        }
+      })
+      .catch(err => {
+        alert("⚠️ Hata oluştu: " + err.message);
+      });
+    });
+  </script>
+</body>
+</html>
